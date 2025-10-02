@@ -12,22 +12,17 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = true)
+    private String name;
+
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private String role; // USER or ADMIN
 
-    @Column(name = "uname", nullable = false)
-    private String name;
-
     @Column(nullable = true)
     private String phone;
-
-
-    @Column(nullable = false, unique = true)
-    private String collegeId;
-
 
     @Column(nullable = true)
     private String bio;
@@ -43,20 +38,11 @@ public class User {
     }
 
     // Constructor with parameters
-    public User(String email, String password, String role, String name, String phone, String collegeId) {
+    public User(String email, String password, String role, String phone) {
         this.email = email;
         this.password = password;
         this.role = role;
-        this.name = name;
         this.phone = phone;
-        this.collegeId = collegeId;
-    }
-    public String getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(String collegeId) {
-        this.collegeId = collegeId;
     }
 
     // Getters and Setters
@@ -76,6 +62,14 @@ public class User {
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -90,14 +84,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPhone() {

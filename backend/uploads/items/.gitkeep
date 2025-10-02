@@ -1,0 +1,2 @@
+# This file ensures the uploads/items directory is preserved in git
+# Actual uploaded files are ignored by .gitignore

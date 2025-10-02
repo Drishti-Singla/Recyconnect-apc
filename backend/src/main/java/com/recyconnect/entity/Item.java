@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "items")
@@ -29,7 +30,32 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User owner;
+
+    // Transient field to return owner_id without full user object
+    @Transient
+    private Long ownerId;
+
+    // Transient field to return seller name without full user object
+    @Transient
+    private String sellerName;
+
+    public Long getOwnerId() {
+        return this.owner != null ? this.owner.getId() : this.ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getSellerName() {
+        return this.owner != null ? this.owner.getName() : this.sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
 
     // Usage and History
     private Integer usageTime;

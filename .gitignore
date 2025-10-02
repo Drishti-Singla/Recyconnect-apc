@@ -1,0 +1,50 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE Files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Log Files
+*.log
+backend.log
+
+# Build Artifacts
+/backend/target/
+/frontend/build/
+
+# Temporary Files
+*.tmp
+*.temp
+
+# SQL and Database Files
+*.sql
+*.db
+*.sqlite
+
+# Batch and Script Files
+*.bat
+*.cmd
+
+# Node.js (in backend directory where it shouldn't be)
+/backend/node_modules/
+/backend/package*.json
+
+# Environment Variables (except frontend .env which might be needed)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Uploads (keep structure but ignore actual files)
+/backend/uploads/items/*
+!/backend/uploads/items/.gitkeep

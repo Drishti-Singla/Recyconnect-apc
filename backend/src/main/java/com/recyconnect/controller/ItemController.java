@@ -30,8 +30,28 @@ public class ItemController {
     private FileUploadService fileUploadService;
 
     @GetMapping
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
+    public ResponseEntity<List<Item>> getAllItems() {
+        try {
+            System.out.println("GET /api/items - Starting request");
+            List<Item> items = itemRepository.findAll();
+            
+            System.out.println("GET /api/items - Found " + items.size() + " items");
+            
+            // Pre-process items to set ownerId before serialization
+            for (Item item : items) {
+                if (item.getOwner() != null) {
+                    item.setOwnerId(item.getOwner().getId());
+                    item.setSellerName(item.getOwner().getName());
+                }
+            }
+            
+            System.out.println("About to return all items response...");
+            return ResponseEntity.ok(items);
+        } catch (Exception e) {
+            System.err.println("Error in getAllItems: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PostMapping
@@ -208,8 +228,28 @@ public class ItemController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Item> getItemsByUser(@PathVariable Long userId) {
-        return itemRepository.findByOwner_Id(userId);
+    public ResponseEntity<List<Item>> getItemsByUser(@PathVariable Long userId) {
+        try {
+            System.out.println("GET /api/items/user/" + userId + " - Starting request");
+            List<Item> items = itemRepository.findByOwner_Id(userId);
+            
+            System.out.println("GET /api/items/user/" + userId + " - Found " + items.size() + " items");
+            
+            // Pre-process items to set ownerId before serialization
+            for (Item item : items) {
+                if (item.getOwner() != null) {
+                    item.setOwnerId(item.getOwner().getId());
+                }
+                System.out.println("User item: " + item.getTitle() + ", OwnerId: " + item.getOwnerId());
+            }
+            
+            System.out.println("About to return user items response...");
+            return ResponseEntity.ok(items);
+        } catch (Exception e) {
+            System.err.println("Error in getItemsByUser: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PutMapping("/{id}")
